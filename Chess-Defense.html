@@ -3080,7 +3080,10 @@ body {
 #help-modal .modal {
   max-width: min(92vw, 420px);
   max-height: min(82vh, 680px);
-  overflow: auto;
+  overflow-y: auto;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 #help-modal h3 {
@@ -8253,7 +8256,11 @@ document.addEventListener("keydown", (e) => {
     return;
   }
   if (k === "Escape") {
-    if (!$("#help-modal").classList.contains("hidden")) { $("#help-modal").classList.add("hidden"); tutorialEvent("opened-help"); return; }
+    if (!$("#help-modal").classList.contains("hidden")) {
+      if (!tutState) $("#help-modal").classList.add("hidden");
+      e.preventDefault();
+      return;
+    }
     if (!$("#settings-modal").classList.contains("hidden")) { $("#settings-modal").classList.add("hidden"); return; }
     if (!$("#ranking-modal").classList.contains("hidden")) { $("#ranking-modal").classList.add("hidden"); return; }
     if (!$("#combine-modal").classList.contains("hidden")) { $("#combine-modal").classList.add("hidden"); return; }
@@ -8273,8 +8280,11 @@ document.addEventListener("keydown", (e) => {
     return;
   }
   if (k === "?" || k === "/") {
-    $("#help-modal").classList.toggle("hidden");
-    if ($("#help-modal").classList.contains("hidden")) tutorialEvent("opened-help");
+    const helpModal = $("#help-modal");
+    if (!tutState || helpModal.classList.contains("hidden")) {
+      helpModal.classList.toggle("hidden");
+      $("#btn-replay-tut").style.display = tutState ? "none" : "";
+    }
     e.preventDefault();
     return;
   }
@@ -8402,7 +8412,11 @@ function init() {
   });
   $("#btn-auto-start").addEventListener("click", () => toggleAuto());
   $("#btn-speed").addEventListener("click", () => cycleSpeed());
-  $("#btn-help").addEventListener("click", () => $("#help-modal").classList.toggle("hidden"));
+  $("#btn-help").addEventListener("click", () => {
+    const helpModal = $("#help-modal");
+    helpModal.classList.toggle("hidden");
+    $("#btn-replay-tut").style.display = tutState ? "none" : "";
+  });
   $("#btn-settings")?.addEventListener("click", () => $("#settings-modal").classList.toggle("hidden"));
   $("#settings-close-btn")?.addEventListener("click", () => $("#settings-modal").classList.add("hidden"));
   $("#settings-modal")?.addEventListener("click", (e) => {
@@ -8433,12 +8447,13 @@ function init() {
   });
   $("#modal-close-btn").addEventListener("click", () => { $("#help-modal").classList.add("hidden"); tutorialEvent("opened-help"); });
   $("#btn-replay-tut").addEventListener("click", () => {
+    if (tutState) return;
     $("#help-modal").classList.add("hidden");
     startTutorial(true);
   });
   $("#combine-close-btn").addEventListener("click", () => $("#combine-modal").classList.add("hidden"));
   $("#help-modal").addEventListener("click", (e) => {
-    if (e.target.id === "help-modal") { e.currentTarget.classList.add("hidden"); tutorialEvent("opened-help"); }
+    if (e.target.id === "help-modal" && !tutState) e.currentTarget.classList.add("hidden");
   });
   $("#combine-modal").addEventListener("click", (e) => {
     if (e.target.id === "combine-modal") e.currentTarget.classList.add("hidden");
