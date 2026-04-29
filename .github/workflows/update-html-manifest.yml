@@ -1,0 +1,31 @@
+name: Update HTML manifest
+
+on:
+  push:
+    paths:
+      - "**/*.html"
+      - "**/*.htm"
+      - "scripts/update-html-manifest.ps1"
+      - ".github/workflows/update-html-manifest.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Generate manifest
+        shell: pwsh
+        run: ./scripts/update-html-manifest.ps1
+
+      - name: Commit manifest
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update HTML manifest"
+          file_pattern: html-manifest.json
