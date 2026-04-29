@@ -1,13 +1,13 @@
-﻿{
-    "generatedAt":  "2026-04-29T08:28:37Z",
-    "pages":  [
-                  {
-                      "title":  "Chess Defense",
-                      "path":  "Chess-Defense.html"
-                  },
-                  {
-                      "title":  "Deepsleephelper Canon",
-                      "path":  "DeepSleepHelper-Canon.html"
-                  }
-              ]
+{
+  "generatedAt": "2026-04-29T10:43:05Z",
+  "pages": [
+    {
+      "title": "Chess Defense",
+      "path": "Chess-Defense.html"
+    },
+    {
+      "title": "Deepsleephelper Canon",
+      "path": "DeepSleepHelper-Canon.html"
+    }
+  ]
 }
