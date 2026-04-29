@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-29T08:11:43Z",
+  "generatedAt": "2026-04-29T08:19:06Z",
   "pages": [
     {
       "title": "CANON V77 OBFUSCATED FOR PUBLISH",
@@ -8,6 +8,10 @@
     {
       "title": "Chess Defense",
       "path": "Chess-Defense.html"
+    },
+    {
+      "title": "Deepsleephelper Canon",
+      "path": "DeepSleepHelper-Canon.html"
     }
   ]
 }
