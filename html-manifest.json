@@ -1,4 +1,9 @@
 {
-  "generatedAt": "2026-04-29T07:54:51Z",
-  "pages": []
+  "generatedAt": "2026-04-29T08:04:36Z",
+  "pages": [
+    {
+      "title": "Chess Defense",
+      "path": "Chess-Defense.html"
+    }
+  ]
 }
